@@ -1,4 +1,3 @@
-// app.js
 require('dotenv').config();
 const { app } = require('./index');
 const { validateEnviroment, Logger } = require('./config/validateEnviroment');
@@ -18,7 +17,7 @@ async function startServer() {
 
         process.on('SIGINT', ()=> shutdownHandler('SIGINT'));
         process.on('SIGTERM', ()=> shutdownHandler('SIGTERM'));
-        
+
     } catch (error) {
         Logger.error(`Erro ao iniciar o servidor: ${error.message}`);
         process.exit(1);
