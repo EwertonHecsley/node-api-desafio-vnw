@@ -14,9 +14,9 @@ Accept: application/json
 Content-Type: application/json
 
 {
-    "name":"Novo Usuario 3",
-    "email":"novo3@email.com",
-    "phone":"83999999999",
+    "name":"Usuario Teste 3",
+    "email":"teste3@email.com",
+    "phone":"99999999997",
     "message":"Teste de mensagem"
 }
 
@@ -25,16 +25,16 @@ GET {{baseUrl}}/users/1
 Content-Type: application/json
 
 ### Atualizar um Usuario existente
-PUT {{baseUrl}}/users/2
+PUT {{baseUrl}}/users/3
 Content-Type: application/json
 
 {
     "name":"Usuario Alterado",
-    "email":"email_alterado@email.com",
-    "phone":"99999999999",
+    "email":"teste_alterado@email.com",
+    "phone":"99999999998",
     "message":"Teste de Menasgem de Atualizacao"
 }
 
 ### Deletar Usuário
-DELETE {{baseUrl}}/users/4
+DELETE {{baseUrl}}/users/2
 Content-Type: application/json

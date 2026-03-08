@@ -29,6 +29,19 @@ const userService = {
     async create(data){
         try{
             const users = await this.getAllUsers();
+            
+            if(users.find(u => u.email === data.email)) {
+                const error = new Error(`E-mail já cadastrado.`);
+                error.status = 409;
+                throw error;
+            }
+
+            if(users.find(u => u.phone === data.phone)) {
+                const error = new Error(`Telefone já cadastrado.`);
+                error.status = 409;
+                throw error;
+            }
+
             const newUser = {
                 id: users.length > 0 ? users[users.length - 1].id + 1 : 1,
                 ...data,
@@ -40,8 +53,11 @@ const userService = {
             Logger.info(`Novo usuário criado: ${newUser.name} (ID: ${newUser.id})`);
             return newUser;
         }catch (err){
-            Logger.error(`Erro ao criar um novo usuário: ${err.message}`);
-            throw new Error('Não foi possível criar o usuário. Por favor, tente novamente mais tarde.');
+            if (err.status) throw err;
+            Logger.error(`Erro crítico no Service: ${err.message}`);
+            const error = new Error('Não foi possível processar sua solicitação.');
+            error.status = 500;
+            throw error;
         }
     },
 
@@ -64,6 +80,18 @@ const userService = {
         if (index === -1) {
             const error = new Error("Usuário não encontrado para atualização.");
             error.status = 404;
+            throw error;
+        }
+
+        if (updateData.email && users.find(u => u.email === updateData.email && u.id !== Number(updateData.id))) {
+            const error = new Error("E-mail já está em uso por outro usuário.");
+            error.status = 409;
+            throw error;
+        }
+
+        if (updateData.phone && users.find(u => u.phone === updateData.phone && u.id !== Number(updateData.id))) {
+            const error = new Error("Telefone já está em uso por outro usuário.");
+            error.status = 409;
             throw error;
         }
 
