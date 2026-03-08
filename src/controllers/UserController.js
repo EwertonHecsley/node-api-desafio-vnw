@@ -31,7 +31,6 @@ const UserController = {
         try{
             const {id} = req.params;
 
-            Logger.info(`Tentativa de atualização para o usuário ID: ${id}`);
             const validateData = updateUserDTO(req.body);
 
             await userService.update(id,validateData);

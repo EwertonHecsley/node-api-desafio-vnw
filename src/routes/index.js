@@ -10,7 +10,7 @@ router.get('/health', (req, res) => {
 router.get('/users',UserController.listAll);
 router.get('/users/:id',UserController.findOne);
 router.post('/users',UserController.create);
-router.put('users/:id',UserController.update);
-router.delete('users/:id',UserController.delete);
+router.put('/users/:id',UserController.update);
+router.delete('/users/:id',UserController.delete);
 
 module.exports = router;

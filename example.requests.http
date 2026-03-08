@@ -2,4 +2,39 @@
 
 ### Rota Health Check
 GET {{baseUrl}}/health
+Content-Type: application/json
+
+### Listar Todos os Usuários
+GET {{baseUrl}}/users
+Content-Type: application/json
+
+### Criar um novo Usuário
+POST {{baseUrl}}/users
 Accept: application/json
+Content-Type: application/json
+
+{
+    "name":"Novo Usuario 3",
+    "email":"novo3@email.com",
+    "phone":"83999999999",
+    "message":"Teste de mensagem"
+}
+
+### Buscar Usuario por ID
+GET {{baseUrl}}/users/1
+Content-Type: application/json
+
+### Atualizar um Usuario existente
+PUT {{baseUrl}}/users/2
+Content-Type: application/json
+
+{
+    "name":"Usuario Alterado",
+    "email":"email_alterado@email.com",
+    "phone":"99999999999",
+    "message":"Teste de Menasgem de Atualizacao"
+}
+
+### Deletar Usuário
+DELETE {{baseUrl}}/users/4
+Content-Type: application/json

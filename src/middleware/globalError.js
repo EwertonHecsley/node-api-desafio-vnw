@@ -7,12 +7,12 @@ const globalErrorHandler = (err, req, res, next) => {
 
     const response = {
         status: 'error',
-        message: statusCode === 500 ? 'Internal Server Error' : err.message
+        message: statusCode === 500 ? 'Internal Server Error' : err.message,
+        errors: err.details || undefined 
     };
 
-    if (process.env.NODE_ENV === Environment.DEVELOPMENT) {
+    if (process.env.NODE_ENV === Environment?.DEVELOPMENT) {
         response.stack = err.stack;
-        response.details = err.details || null;
     }
 
     res.status(statusCode).json(response);

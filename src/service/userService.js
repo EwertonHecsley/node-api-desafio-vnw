@@ -8,7 +8,6 @@ const userService = {
     async _ensureFileExists() {
         try {
             await fs.access(FILE_PATH);
-            Logger.info('Arquivo users.json encontrado com sucesso.');
         } catch (err) {
             Logger.warn('Arquivo users.json não encontrado. Criando um novo arquivo vazio.');
             await fs.writeFile(FILE_PATH, JSON.stringify([]));
@@ -27,7 +26,7 @@ const userService = {
         }
     },
 
-    async createUser(data){
+    async create(data){
         try{
             const users = await this.getAllUsers();
             const newUser = {
@@ -47,8 +46,8 @@ const userService = {
     },
 
     async getById(id) {
-        const users = await this.getAll();
-        const user = users.find(u => u.id === id);
+        const users = await this.getAllUsers();
+        const user = users.find(u => u.id === Number(id));
         
         if (!user) {
             const error = new Error("Usuário não encontrado.");
@@ -59,8 +58,8 @@ const userService = {
     },
 
     async update(id, updateData) {
-        const users = await this.getAll();
-        const index = users.findIndex(u => u.id === id);
+        const users = await this.getAllUsers();
+        const index = users.findIndex(u => u.id === Number(id));
 
         if (index === -1) {
             const error = new Error("Usuário não encontrado para atualização.");
@@ -81,8 +80,8 @@ const userService = {
     },
 
     async delete(id) {
-        const users = await this.getAll();
-        const filteredUsers = users.filter(u => u.id !== id);
+        const users = await this.getAllUsers();
+        const filteredUsers = users.filter(u => u.id !== Number(id));
 
         if (users.length === filteredUsers.length) {
             const error = new Error("Usuário não encontrado para exclusão.");
